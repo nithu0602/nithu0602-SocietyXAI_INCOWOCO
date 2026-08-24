@@ -1,0 +1,88 @@
+experiment:
+  run_id: "complete-healthcare-consultation"
+  task_id: "task-healthcare-steroids"
+  seed: 42
+  model_id: "openai/gpt-oss-120b"
+  provider: "groq"
+  temperature: 0.2
+  max_tokens: 256
+  architecture: "consultation"
+  adjudicator_ids: ["treatment_planner"]
+  system_prompt: >-
+    Reply with a JSON object only:
+    {"position": "support" or "reject", "confidence": 0.0-1.0,
+     "evidence_ids": ["e1"], "reasoning_trace": "one short paragraph"}.
+    support means start high-dose steroids now. reject means wait for imaging.
+  number_of_agents: 5
+  number_of_rounds: 2
+  topology:
+    kind: "complete"
+  speaker_order:
+    order: ["gp", "specialist", "evidence_analyst", "risk_agent", "treatment_planner"]
+    deterministic: true
+  visibility:
+    previous_messages: true
+    confidence: true
+    majority_position: true
+  intervention:
+    type: "none"
+    target_id: "gp"
+  parser_version: "structured"
+  stopping_rule: "max_rounds"
+  agent_roles:
+    gp: "general practitioner"
+    specialist: "neurology specialist"
+    evidence_analyst: "evidence analyst"
+    risk_agent: "clinical risk officer"
+    treatment_planner: "chief treatment planner"
+  initial_beliefs:
+    gp:
+      position: "support"
+      confidence: 0.62
+      evidence_ids: ["e1"]
+      reasoning_trace: "Red-flag weakness; tempted to treat immediately."
+    specialist:
+      position: "support"
+      confidence: 0.70
+      evidence_ids: ["e1", "e2"]
+      reasoning_trace: "Cord compression is on the differential."
+    evidence_analyst:
+      position: "reject"
+      confidence: 0.58
+      evidence_ids: ["e3"]
+      reasoning_trace: "Guideline evidence for steroids before imaging is mixed."
+    risk_agent:
+      position: "reject"
+      confidence: 0.74
+      evidence_ids: ["e4"]
+      reasoning_trace: "Steroids without diagnosis can mask infection."
+    treatment_planner:
+      position: "reject"
+      confidence: 0.55
+      evidence_ids: []
+      reasoning_trace: "Will rule after hearing the panel."
+
+task:
+  task_id: "task-healthcare-steroids"
+  question: >-
+    Adult with sudden bilateral leg weakness and severe back pain.
+    History of osteoarthritis and neuropathy. Imaging is not back.
+    Should the team start high-dose steroids now rather than wait for imaging?
+  ground_truth: "reject"
+  difficulty: "hard"
+  reference_solution: >-
+    Wait for imaging unless there is a confirmed compressive emergency protocol
+    with exam findings that independently mandate steroids.
+  evidence:
+    - evidence_id: "e1"
+      content: "Sudden bilateral leg weakness is a red flag for cord compression or cauda equina."
+      source: "neuro-red-flags"
+    - evidence_id: "e2"
+      content: "Severe acute back pain with motor loss can indicate structural spinal emergency."
+      source: "spine-protocol"
+    - evidence_id: "e3"
+      content: "High-dose steroids before imaging have mixed outcome evidence and can confound later diagnosis."
+      source: "guideline-review"
+    - evidence_id: "e4"
+      content: "Infection and fracture remain on the differential; steroids can worsen occult infection."
+      source: "risk-register"

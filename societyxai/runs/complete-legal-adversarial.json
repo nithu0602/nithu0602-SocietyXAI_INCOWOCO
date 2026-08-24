@@ -1,0 +1,469 @@
+{
+  "run_id": "complete-legal-adversarial",
+  "task_id": "task-legal-noncompete",
+  "seed": 42,
+  "timestamp": "2026-08-24T10:33:26.409272Z",
+  "model_id": "openai/gpt-oss-120b",
+  "provider": "groq",
+  "temperature": 0.2,
+  "system_prompt_hash": "4ed90024f1fbf9477f26fd730a6227c20db2abd26fc5013d5d5980dc048457c9",
+  "topology": {
+    "kind": "complete",
+    "adjacency": null
+  },
+  "speaker_order": [
+    "prosecution",
+    "defence",
+    "evidence_analyst",
+    "precedent_researcher",
+    "judge"
+  ],
+  "visibility": {
+    "previous_messages": true,
+    "confidence": true,
+    "majority_position": true
+  },
+  "initial_beliefs": {
+    "prosecution": {
+      "position": "support",
+      "confidence": 0.82,
+      "evidence_ids": [
+        "e1"
+      ],
+      "reasoning_trace": "Two-year statewide non-compete is overbroad."
+    },
+    "defence": {
+      "position": "reject",
+      "confidence": 0.78,
+      "evidence_ids": [
+        "e4"
+      ],
+      "reasoning_trace": "The company needs IP and mobility protection."
+    },
+    "evidence_analyst": {
+      "position": "support",
+      "confidence": 0.6,
+      "evidence_ids": [
+        "e2"
+      ],
+      "reasoning_trace": "Side-project assignment plus non-compete stacks restrictions."
+    },
+    "precedent_researcher": {
+      "position": "support",
+      "confidence": 0.66,
+      "evidence_ids": [
+        "e1",
+        "e3"
+      ],
+      "reasoning_trace": "Several jurisdictions disfavor broad non-competes."
+    },
+    "judge": {
+      "position": "reject",
+      "confidence": 0.5,
+      "evidence_ids": [],
+      "reasoning_trace": "Will rule after hearing both sides."
+    }
+  },
+  "ground_truth": "support",
+  "agent_traces": [
+    {
+      "agent_id": "prosecution",
+      "role": "employee counsel",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 1,
+      "belief": {
+        "position": "support",
+        "confidence": 0.78,
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "reasoning_trace": "State law and case precedent show that a two‑year, statewide non‑compete is overly broad and not narrowly tailored to protect legitimate trade secrets; courts routinely invalidate or blue‑pencil such clauses lacking a geographic or customer‑base nexus, making the clause likely unenforceable."
+      },
+      "received_message_ids": [],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "defence",
+      "role": "startup counsel",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 2,
+      "belief": {
+        "position": "reject",
+        "confidence": 1.0,
+        "evidence_ids": [],
+        "reasoning_trace": ""
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    },
+    {
+      "agent_id": "evidence_analyst",
+      "role": "evidence analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 3,
+      "belief": {
+        "position": "support",
+        "confidence": 1.0,
+        "evidence_ids": [],
+        "reasoning_trace": ""
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    },
+    {
+      "agent_id": "precedent_researcher",
+      "role": "precedent researcher",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 4,
+      "belief": {
+        "position": "support",
+        "confidence": 0.71,
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "reasoning_trace": "e1 shows that many states prohibit overly broad non‑competes, and e3 confirms courts routinely void or blue‑pencil statewide clauses lacking a customer or geographic nexus; together they indicate the two‑year, statewide restriction is not narrowly tailored to protect legitimate trade secrets and should be struck as unenforceable."
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    },
+    {
+      "agent_id": "prosecution",
+      "role": "employee counsel",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 1,
+      "belief": {
+        "position": "support",
+        "confidence": 0.76,
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "reasoning_trace": "e1 shows many states prohibit overly broad non‑competes, and e3 confirms courts routinely void statewide clauses lacking a customer or geographic nexus; the two‑year, statewide restriction is not narrowly tailored to protect any legitimate trade secret, so it should be struck as unenforceable."
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "defence",
+      "role": "startup counsel",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 2,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.66,
+        "evidence_ids": [
+          "e4",
+          "e2"
+        ],
+        "reasoning_trace": "The startup can demonstrate a legitimate protectable interest: the engineer had access to unreleased model weights and customer lists (e4), and the broad IP assignment clause (e2) shows the company’s need to capture inventions arising from its confidential resources; these factors justify a two‑year, statewide restriction as reasonably necessary to safeguard trade secrets, making the non‑compete more likely enforceable."
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    },
+    {
+      "agent_id": "evidence_analyst",
+      "role": "evidence analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 3,
+      "belief": {
+        "position": "support",
+        "confidence": 0.73,
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "reasoning_trace": "e1 shows many states prohibit overly broad non‑competes, and e3 confirms courts routinely void statewide clauses lacking a customer or geographic nexus; the two‑year, statewide restriction is not narrowly tailored to protect the startup's trade secrets, making it likely unenforceable."
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution",
+        "r2_t2_defence"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    },
+    {
+      "agent_id": "precedent_researcher",
+      "role": "precedent researcher",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 4,
+      "belief": {
+        "position": "support",
+        "confidence": 0.72,
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "reasoning_trace": "e1 shows that many jurisdictions deem overly broad, long‑duration non‑competes invalid, and e3 confirms courts routinely blue‑pencil statewide clauses lacking a customer or geographic nexus; the two‑year, statewide restriction is not narrowly tailored to protect the startup's trade secrets, so it should be struck as unenforceable."
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution",
+        "r2_t2_defence",
+        "r2_t3_evidence_analyst"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    },
+    {
+      "agent_id": "judge",
+      "role": "adjudicating judge",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 5,
+      "belief": {
+        "position": "support",
+        "confidence": 0.78,
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "reasoning_trace": "The two‑year, statewide restriction exceeds what is necessary to protect the startup's trade secrets; without a geographic or customer‑base nexus, courts routinely void or blue‑pencil such clauses, making the non‑compete unenforceable despite the engineer's access to confidential data."
+      },
+      "received_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution",
+        "r2_t2_defence",
+        "r2_t3_evidence_analyst",
+        "r2_t4_precedent_researcher"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "support"
+    }
+  ],
+  "message_traces": [
+    {
+      "message_id": "r1_t1_prosecution",
+      "agent_id": "prosecution",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 1,
+      "content": "{\"position\":\"support\",\"confidence\":0.78,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"State law and case precedent show that a two‑year, statewide non‑compete is overly broad and not narrowly tailored to protect legitimate trade secrets; courts routinely invalidate or blue‑pencil such clauses lacking a geographic or customer‑base nexus, making the clause likely unenforceable.\"}",
+      "parent_message_ids": [],
+      "content_hash": "8061534af04ca52378b0e29a51d55c44f0da8e19c7c9ad4f4bedc9d160944475",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r1_t2_defence",
+      "agent_id": "defence",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 2,
+      "content": "{\"position\":\"reject\",\"confidence\":0.68,\"evidence",
+      "parent_message_ids": [
+        "r1_t1_prosecution"
+      ],
+      "content_hash": "db49d812cf6f4c4e4fbf7e7080aa9c154e8f3ce91bc3bd99c2ff27085d5b4a66",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r1_t3_evidence_analyst",
+      "agent_id": "evidence_analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 3,
+      "content": "{\"position\":\"support\",\"confidence\":0.72,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"Both e1 and e3 show that many jurisdictions deem two‑year, statewide non‑competes overly broad and unenforceable absent a clear customer or geographic nexus; the employer’s claim of access to model weights and lists (e4) does not justify such sweeping scope, so the clause should be",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence"
+      ],
+      "content_hash": "fa11741475cc8599ad2395fe3b742ca1230b8c2bb7a50f3730825f18f4f00113",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r1_t4_precedent_researcher",
+      "agent_id": "precedent_researcher",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 4,
+      "content": "{\"position\":\"support\",\"confidence\":0.71,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"e1 shows that many states prohibit overly broad non‑competes, and e3 confirms courts routinely void or blue‑pencil statewide clauses lacking a customer or geographic nexus; together they indicate the two‑year, statewide restriction is not narrowly tailored to protect legitimate trade secrets and should be struck as unenforceable.\"}",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst"
+      ],
+      "content_hash": "5f6fdd7f5ec59cf5bfe3bd412e9dd8275970ccf4de6d113cf163450349af40c2",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t1_prosecution",
+      "agent_id": "prosecution",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 1,
+      "content": "{\"position\":\"support\",\"confidence\":0.76,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"e1 shows many states prohibit overly broad non‑competes, and e3 confirms courts routinely void statewide clauses lacking a customer or geographic nexus; the two‑year, statewide restriction is not narrowly tailored to protect any legitimate trade secret, so it should be struck as unenforceable.\"}",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher"
+      ],
+      "content_hash": "602602ee753344fda43c9dcdf86ec7087e0579d7131b3d0cd72129ce07f6d003",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t2_defence",
+      "agent_id": "defence",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 2,
+      "content": "{\"position\":\"reject\",\"confidence\":0.66,\"evidence_ids\":[\"e4\",\"e2\"],\"reasoning_trace\":\"The startup can demonstrate a legitimate protectable interest: the engineer had access to unreleased model weights and customer lists (e4), and the broad IP assignment clause (e2) shows the company’s need to capture inventions arising from its confidential resources; these factors justify a two‑year, statewide restriction as reasonably necessary to safeguard trade secrets, making the non‑compete more likely enforceable.\"}",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution"
+      ],
+      "content_hash": "b1bcbffd93228223bc589f2b7b0ef30a65edce67747cbc65b311c142612cd43e",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t3_evidence_analyst",
+      "agent_id": "evidence_analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 3,
+      "content": "{\"position\":\"support\",\"confidence\":0.73,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"e1 shows many states prohibit overly broad non‑competes, and e3 confirms courts routinely void statewide clauses lacking a customer or geographic nexus; the two‑year, statewide restriction is not narrowly tailored to protect the startup's trade secrets, making it likely unenforceable.\"}",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution",
+        "r2_t2_defence"
+      ],
+      "content_hash": "7efee3e0a6272213c6d7842c77cce4168a8ee2f94a3975849d7ae9d752ed6831",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t4_precedent_researcher",
+      "agent_id": "precedent_researcher",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 4,
+      "content": "{\"position\":\"support\",\"confidence\":0.72,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"e1 shows that many jurisdictions deem overly broad, long‑duration non‑competes invalid, and e3 confirms courts routinely blue‑pencil statewide clauses lacking a customer or geographic nexus; the two‑year, statewide restriction is not narrowly tailored to protect the startup's trade secrets, so it should be struck as unenforceable.\"}",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution",
+        "r2_t2_defence",
+        "r2_t3_evidence_analyst"
+      ],
+      "content_hash": "12a7e222ef30eaa3e9174753b6d2bb649804a9b37f114c26da9450357013a8a5",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t5_judge",
+      "agent_id": "judge",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 5,
+      "content": "{\"position\":\"support\",\"confidence\":0.78,\"evidence_ids\":[\"e1\",\"e3\"],\"reasoning_trace\":\"The two‑year, statewide restriction exceeds what is necessary to protect the startup's trade secrets; without a geographic or customer‑base nexus, courts routinely void or blue‑pencil such clauses, making the non‑compete unenforceable despite the engineer's access to confidential data.\"}",
+      "parent_message_ids": [
+        "r1_t1_prosecution",
+        "r1_t2_defence",
+        "r1_t3_evidence_analyst",
+        "r1_t4_precedent_researcher",
+        "r2_t1_prosecution",
+        "r2_t2_defence",
+        "r2_t3_evidence_analyst",
+        "r2_t4_precedent_researcher"
+      ],
+      "content_hash": "864d502f1feff36bc9d70b0283ff7f28c5522014a5ffcebdfcf0d4d719fb374a",
+      "intervention_status": "none"
+    }
+  ],
+  "intervention": null,
+  "final_decision": "support",
+  "correctness": true
+}

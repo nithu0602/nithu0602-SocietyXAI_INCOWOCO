@@ -1,0 +1,483 @@
+{
+  "run_id": "complete-healthcare-consultation",
+  "task_id": "task-healthcare-steroids",
+  "seed": 42,
+  "timestamp": "2026-08-24T10:32:03.237170Z",
+  "model_id": "openai/gpt-oss-120b",
+  "provider": "groq",
+  "temperature": 0.2,
+  "system_prompt_hash": "b7242fb07608b414e266c10228fc0a27b69a423aa421b571f32014730e27118d",
+  "topology": {
+    "kind": "complete",
+    "adjacency": null
+  },
+  "speaker_order": [
+    "gp",
+    "specialist",
+    "evidence_analyst",
+    "risk_agent",
+    "treatment_planner"
+  ],
+  "visibility": {
+    "previous_messages": true,
+    "confidence": true,
+    "majority_position": true
+  },
+  "initial_beliefs": {
+    "gp": {
+      "position": "support",
+      "confidence": 0.62,
+      "evidence_ids": [
+        "e1"
+      ],
+      "reasoning_trace": "Red-flag weakness; tempted to treat immediately."
+    },
+    "specialist": {
+      "position": "support",
+      "confidence": 0.7,
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "reasoning_trace": "Cord compression is on the differential."
+    },
+    "evidence_analyst": {
+      "position": "reject",
+      "confidence": 0.58,
+      "evidence_ids": [
+        "e3"
+      ],
+      "reasoning_trace": "Guideline evidence for steroids before imaging is mixed."
+    },
+    "risk_agent": {
+      "position": "reject",
+      "confidence": 0.74,
+      "evidence_ids": [
+        "e4"
+      ],
+      "reasoning_trace": "Steroids without diagnosis can mask infection."
+    },
+    "treatment_planner": {
+      "position": "reject",
+      "confidence": 0.55,
+      "evidence_ids": [],
+      "reasoning_trace": "Will rule after hearing the panel."
+    }
+  },
+  "ground_truth": "reject",
+  "agent_traces": [
+    {
+      "agent_id": "gp",
+      "role": "general practitioner",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 1,
+      "belief": {
+        "position": "neutral",
+        "confidence": 1.0,
+        "evidence_ids": [],
+        "reasoning_trace": ""
+      },
+      "received_message_ids": [],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "specialist",
+      "role": "neurology specialist",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 2,
+      "belief": {
+        "position": "reject",
+        "confidence": 1.0,
+        "evidence_ids": [],
+        "reasoning_trace": ""
+      },
+      "received_message_ids": [
+        "r1_t1_gp"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "evidence_analyst",
+      "role": "evidence analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 3,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.68,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Red‑flag signs (acute bilateral weakness, severe back pain) demand prompt imaging to confirm cord compression or cauda equina; high‑dose steroids before diagnosis have mixed outcomes and can mask infection or fracture, risking harm."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "risk_agent",
+      "role": "clinical risk officer",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 1,
+      "turn_index": 4,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.78,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Acute bilateral leg weakness and severe back pain are red‑flag signs of possible spinal cord or cauda equina compression; immediate imaging is required to confirm the diagnosis. Initiating high‑dose steroids before imaging carries risks of masking infection or fracture and has inconsistent benefit, so the safer approach is to obtain imaging first."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "gp",
+      "role": "general practitioner",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 1,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.74,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Acute bilateral leg weakness and severe back pain are red‑flag signs of possible cord or cauda‑equina compression; imaging is essential to confirm diagnosis before steroids, which can mask infection or fracture and have uncertain benefit."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "specialist",
+      "role": "neurology specialist",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 2,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.81,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Acute bilateral leg weakness and severe back pain are red‑flag signs of possible spinal cord or cauda‑equina compression; immediate imaging is required to rule out compression, fracture, or infection, and high‑dose steroids given beforehand can mask pathology and carry significant risk."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "evidence_analyst",
+      "role": "evidence analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 3,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.73,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Red‑flag signs (acute bilateral weakness, severe back pain) mandate urgent imaging to rule out cord compression, fracture, or infection; high‑dose steroids before a definitive diagnosis have inconsistent benefit and can obscure pathology or worsen infection, so waiting for imaging is the safer approach."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp",
+        "r2_t2_specialist"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "risk_agent",
+      "role": "clinical risk officer",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 4,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.86,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Red‑flag signs (acute bilateral leg weakness and severe back pain) indicate possible spinal cord or cauda equina compression, fracture, or infection; initiating high‑dose steroids before definitive imaging can mask pathology, exacerbate infection, and increase morbidity, so the safer risk‑based approach is to obtain urgent imaging first."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp",
+        "r2_t2_specialist",
+        "r2_t3_evidence_analyst"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    },
+    {
+      "agent_id": "treatment_planner",
+      "role": "chief treatment planner",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "capability_score": null,
+      "social_style": "assertiveness=0.5,verbosity=0.5,confidence_style=0.5",
+      "round": 2,
+      "turn_index": 5,
+      "belief": {
+        "position": "reject",
+        "confidence": 0.78,
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "reasoning_trace": "Acute bilateral leg weakness and severe back pain are red‑flag signs of possible cord or cauda‑equina compression, fracture, or infection; urgent imaging is required to identify the cause, and initiating high‑dose steroids beforehand risks masking pathology and worsening infection, so waiting for imaging is the safer approach."
+      },
+      "received_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp",
+        "r2_t2_specialist",
+        "r2_t3_evidence_analyst",
+        "r2_t4_risk_agent"
+      ],
+      "cited_agent_ids": [],
+      "exposed_majority_position": "reject"
+    }
+  ],
+  "message_traces": [
+    {
+      "message_id": "r1_t1_gp",
+      "agent_id": "gp",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 1,
+      "content": "{\"",
+      "parent_message_ids": [],
+      "content_hash": "6017dbca8e3eeb2f73be4123b0032c736d8c8f9bf8c86e6631887342c06fec90",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r1_t2_specialist",
+      "agent_id": "specialist",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 2,
+      "content": "{\"position\":\"reject\",\"confidence\":0.62,\"evidence_ids\":[\"e3\",\"e4\"],\"reasoning_trace",
+      "parent_message_ids": [
+        "r1_t1_gp"
+      ],
+      "content_hash": "98d9f26f90d6a0057022adfe20da8c70d1634f1a981e476ff100a1e5f5d5d9a1",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r1_t3_evidence_analyst",
+      "agent_id": "evidence_analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 3,
+      "content": "{\"position\":\"reject\",\"confidence\":0.68,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Red‑flag signs (acute bilateral weakness, severe back pain) demand prompt imaging to confirm cord compression or cauda equina; high‑dose steroids before diagnosis have mixed outcomes and can mask infection or fracture, risking harm.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist"
+      ],
+      "content_hash": "ef73f1e7a811a2d2136ecb45f8de751d541cc42c834767628b5c7c41170a8174",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r1_t4_risk_agent",
+      "agent_id": "risk_agent",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 1,
+      "turn_index": 4,
+      "content": "{\"position\":\"reject\",\"confidence\":0.78,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Acute bilateral leg weakness and severe back pain are red‑flag signs of possible spinal cord or cauda equina compression; immediate imaging is required to confirm the diagnosis. Initiating high‑dose steroids before imaging carries risks of masking infection or fracture and has inconsistent benefit, so the safer approach is to obtain imaging first.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst"
+      ],
+      "content_hash": "5fe7ed7ef32d5b5783fb716fff31b9d13c4e62681a9279e62454c311ae273154",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t1_gp",
+      "agent_id": "gp",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 1,
+      "content": "{\"position\":\"reject\",\"confidence\":0.74,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Acute bilateral leg weakness and severe back pain are red‑flag signs of possible cord or cauda‑equina compression; imaging is essential to confirm diagnosis before steroids, which can mask infection or fracture and have uncertain benefit.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent"
+      ],
+      "content_hash": "94be40ab40001083ca981c7790d3472bd78c7fcc451c77fdb6d5958bc60729b0",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t2_specialist",
+      "agent_id": "specialist",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 2,
+      "content": "{\"position\":\"reject\",\"confidence\":0.81,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Acute bilateral leg weakness and severe back pain are red‑flag signs of possible spinal cord or cauda‑equina compression; immediate imaging is required to rule out compression, fracture, or infection, and high‑dose steroids given beforehand can mask pathology and carry significant risk.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp"
+      ],
+      "content_hash": "59401d97fc41cb34880bc2b87bb412cff7b3895ed57d4e7b947c5b0823067182",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t3_evidence_analyst",
+      "agent_id": "evidence_analyst",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 3,
+      "content": "{\"position\":\"reject\",\"confidence\":0.73,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Red‑flag signs (acute bilateral weakness, severe back pain) mandate urgent imaging to rule out cord compression, fracture, or infection; high‑dose steroids before a definitive diagnosis have inconsistent benefit and can obscure pathology or worsen infection, so waiting for imaging is the safer approach.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp",
+        "r2_t2_specialist"
+      ],
+      "content_hash": "3ee4e15e04335c7ddaf4a56dc1a4f3eba41ce624acdb869073aac3bc010b20be",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t4_risk_agent",
+      "agent_id": "risk_agent",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 4,
+      "content": "{\"position\":\"reject\",\"confidence\":0.86,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Red‑flag signs (acute bilateral leg weakness and severe back pain) indicate possible spinal cord or cauda equina compression, fracture, or infection; initiating high‑dose steroids before definitive imaging can mask pathology, exacerbate infection, and increase morbidity, so the safer risk‑based approach is to obtain urgent imaging first.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp",
+        "r2_t2_specialist",
+        "r2_t3_evidence_analyst"
+      ],
+      "content_hash": "f28880fd015e03d5341a85f6d43fd2bd98e5a96da45926dc21d4aae67437a663",
+      "intervention_status": "none"
+    },
+    {
+      "message_id": "r2_t5_treatment_planner",
+      "agent_id": "treatment_planner",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "round": 2,
+      "turn_index": 5,
+      "content": "{\"position\":\"reject\",\"confidence\":0.78,\"evidence_ids\":[\"e1\",\"e2\",\"e3\",\"e4\"],\"reasoning_trace\":\"Acute bilateral leg weakness and severe back pain are red‑flag signs of possible cord or cauda‑equina compression, fracture, or infection; urgent imaging is required to identify the cause, and initiating high‑dose steroids beforehand risks masking pathology and worsening infection, so waiting for imaging is the safer approach.\"}",
+      "parent_message_ids": [
+        "r1_t1_gp",
+        "r1_t2_specialist",
+        "r1_t3_evidence_analyst",
+        "r1_t4_risk_agent",
+        "r2_t1_gp",
+        "r2_t2_specialist",
+        "r2_t3_evidence_analyst",
+        "r2_t4_risk_agent"
+      ],
+      "content_hash": "7084391a84265f6e6e1918a912534beb5b9b1579e037dacc540f8627fead4165",
+      "intervention_status": "none"
+    }
+  ],
+  "intervention": null,
+  "final_decision": "reject",
+  "correctness": true
+}

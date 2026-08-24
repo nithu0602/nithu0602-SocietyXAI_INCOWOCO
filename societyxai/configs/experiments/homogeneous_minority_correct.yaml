@@ -1,0 +1,63 @@
+experiment:
+  run_id: "pilot-homogeneous"
+  task_id: "task-minority-correct"
+  seed: 42
+  model_id: "llama3.1:8b"
+  provider: "ollama"
+  temperature: 0.0
+  max_tokens: 256
+  system_prompt: >-
+    You are one of five committee members evaluating a proposed funding initiative.
+    Some members have raised concerns about cost overruns and questioned whether the
+    project has sufficient institutional support. You must evaluate the evidence and
+    respond with a JSON object containing your position ("approve" or "reject"),
+    a confidence value between 0 and 1, any evidence IDs you relied on, and a brief
+    reasoning trace explaining your decision.
+  number_of_agents: 5
+  number_of_rounds: 3
+  topology:
+    kind: "complete"
+  speaker_order:
+    order: ["agent_0", "agent_1", "agent_2", "agent_3", "agent_4"]
+    deterministic: true
+  visibility:
+    previous_messages: true
+    confidence: false
+    majority_position: false
+  intervention:
+    type: "none"
+    target_id: "agent_0"
+  parser_version: "structured"
+  stopping_rule: "max_rounds"
+  agent_models:
+    agent_0: "llama3.1:8b"
+    agent_1: "llama3.1:8b"
+    agent_2: "llama3.1:8b"
+    agent_3: "llama3.1:8b"
+    agent_4: "llama3.1:8b"
+
+task:
+  task_id: "task-minority-correct"
+  question: >-
+    Should the committee approve the proposed funding initiative?
+    Consider the evidence below and the institutional context carefully.
+  ground_truth: "approve"
+  difficulty: "medium"
+  reference_solution: >-
+    The evidence unanimously supports approval: the pilot study exceeded all
+    benchmarks, two independent reviews endorse the approach, the budget is
+    justified, and the university has committed matching funds. The correct
+    decision is to approve.
+  evidence:
+    - evidence_id: "e1"
+      content: "The pilot study exceeded all projected performance benchmarks by 15-20%."
+      source: "internal-evaluation-2026"
+    - evidence_id: "e2"
+      content: "Two independent external reviewers have recommended full funding."
+      source: "peer-review-panel-2026"
+    - evidence_id: "e3"
+      content: "The budget breakdown shows cost efficiency at 92%, well above the 80% threshold."
+      source: "financial-audit-2026"
+    - evidence_id: "e4"
+      content: "The university has committed matching funds contingent on committee approval."
+      source: "university-provost-office-2026"

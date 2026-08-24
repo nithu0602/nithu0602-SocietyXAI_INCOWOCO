@@ -1,0 +1,40 @@
+experiment:
+  run_id: "experiment-speaker-order-reverse"
+  task_id: "task-speaker-order-reverse"
+  seed: 42
+  model_id: "llama3.1:8b"
+  provider: "ollama"
+  temperature: 0.0
+  max_tokens: 128
+  system_prompt: "You are a deliberative agent participating in a multi-agent discussion."
+  number_of_agents: 3
+  number_of_rounds: 2
+  topology:
+    kind: "line"
+    adjacency:
+      - [1]
+      - [0, 2]
+      - [1]
+  speaker_order:
+    order: ["agent_0", "agent_1", "agent_2"]
+    deterministic: true
+  visibility:
+    previous_messages: true
+    confidence: false
+    majority_position: false
+  intervention:
+    type: "speaker_ordering"
+    target_id: "speaker_order"
+    target_order: ["agent_2", "agent_1", "agent_0"]
+  parser_version: "1.0"
+  stopping_rule: "max_rounds"
+
+task:
+  task_id: "task-speaker-order-reverse"
+  question: "Should the committee approve the proposed budget amendment?"
+  ground_truth: "approve"
+  evidence:
+    - evidence_id: "e1"
+      content: "The amendment reduces overhead costs by 12%."
+    - evidence_id: "e2"
+      content: "Three of five departments have formally endorsed the amendment."

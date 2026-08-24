@@ -1,0 +1,88 @@
+experiment:
+  run_id: "complete-legal-adversarial"
+  task_id: "task-legal-noncompete"
+  seed: 42
+  model_id: "openai/gpt-oss-120b"
+  provider: "groq"
+  temperature: 0.2
+  max_tokens: 256
+  architecture: "adversarial"
+  adjudicator_ids: ["judge"]
+  system_prompt: >-
+    Reply with a JSON object only:
+    {"position": "support" or "reject", "confidence": 0.0-1.0,
+     "evidence_ids": ["e1"], "reasoning_trace": "one short paragraph"}.
+    support means strike the non-compete as unenforceable. reject means keep it.
+  number_of_agents: 5
+  number_of_rounds: 2
+  topology:
+    kind: "complete"
+  speaker_order:
+    order: ["prosecution", "defence", "evidence_analyst", "precedent_researcher", "judge"]
+    deterministic: true
+  visibility:
+    previous_messages: true
+    confidence: true
+    majority_position: true
+  intervention:
+    type: "none"
+    target_id: "prosecution"
+  parser_version: "structured"
+  stopping_rule: "max_rounds"
+  agent_roles:
+    prosecution: "employee counsel"
+    defence: "startup counsel"
+    evidence_analyst: "evidence analyst"
+    precedent_researcher: "precedent researcher"
+    judge: "adjudicating judge"
+  initial_beliefs:
+    prosecution:
+      position: "support"
+      confidence: 0.82
+      evidence_ids: ["e1"]
+      reasoning_trace: "Two-year statewide non-compete is overbroad."
+    defence:
+      position: "reject"
+      confidence: 0.78
+      evidence_ids: ["e4"]
+      reasoning_trace: "The company needs IP and mobility protection."
+    evidence_analyst:
+      position: "support"
+      confidence: 0.60
+      evidence_ids: ["e2"]
+      reasoning_trace: "Side-project assignment plus non-compete stacks restrictions."
+    precedent_researcher:
+      position: "support"
+      confidence: 0.66
+      evidence_ids: ["e1", "e3"]
+      reasoning_trace: "Several jurisdictions disfavor broad non-competes."
+    judge:
+      position: "reject"
+      confidence: 0.50
+      evidence_ids: []
+      reasoning_trace: "Will rule after hearing both sides."
+
+task:
+  task_id: "task-legal-noncompete"
+  question: >-
+    A startup employment contract has a two-year statewide non-compete
+    and assigns all side-project IP to the company.
+    Should the non-compete clause be struck as unenforceable?
+  ground_truth: "support"
+  difficulty: "hard"
+  reference_solution: >-
+    A two-year statewide non-compete plus total side-project assignment is
+    typically overbroad relative to protectable business interests.
+  evidence:
+    - evidence_id: "e1"
+      content: "Several states limit or ban non-competes that are longer than necessary to protect trade secrets."
+      source: "labor-code-survey"
+    - evidence_id: "e2"
+      content: "The clause assigns all personal side-project IP even when created off-hours without company resources."
+      source: "contract-draft"
+    - evidence_id: "e3"
+      content: "Courts often blue-pencil or void non-competes that cover an entire state without a customer nexus."
+      source: "case-law-memo"
+    - evidence_id: "e4"
+      content: "The startup argues the engineer had access to unreleased model weights and customer lists."
+      source: "employer-brief"

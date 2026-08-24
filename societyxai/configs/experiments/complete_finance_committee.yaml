@@ -1,0 +1,88 @@
+experiment:
+  run_id: "complete-finance-committee"
+  task_id: "task-finance-acme-long"
+  seed: 42
+  model_id: "openai/gpt-oss-120b"
+  provider: "groq"
+  temperature: 0.2
+  max_tokens: 256
+  architecture: "committee"
+  adjudicator_ids: ["cio"]
+  system_prompt: >-
+    Reply with a JSON object only:
+    {"position": "support" or "reject", "confidence": 0.0-1.0,
+     "evidence_ids": ["e1"], "reasoning_trace": "one short paragraph"}.
+    support means execute an aggressive long. reject means abort the trade.
+  number_of_agents: 5
+  number_of_rounds: 2
+  topology:
+    kind: "complete"
+  speaker_order:
+    order: ["growth", "risk", "portfolio", "macro", "cio"]
+    deterministic: true
+  visibility:
+    previous_messages: true
+    confidence: true
+    majority_position: true
+  intervention:
+    type: "none"
+    target_id: "growth"
+  parser_version: "structured"
+  stopping_rule: "max_rounds"
+  agent_roles:
+    growth: "growth analyst"
+    risk: "chief risk officer"
+    portfolio: "portfolio manager"
+    macro: "macro economist"
+    cio: "chief investment officer"
+  initial_beliefs:
+    growth:
+      position: "support"
+      confidence: 0.71
+      evidence_ids: ["e2"]
+      reasoning_trace: "Paper strategy win rate looks tradable."
+    risk:
+      position: "reject"
+      confidence: 0.84
+      evidence_ids: ["e1", "e3"]
+      reasoning_trace: "SEC comment letter is a left-tail event."
+    portfolio:
+      position: "reject"
+      confidence: 0.63
+      evidence_ids: ["e3"]
+      reasoning_trace: "Sizing an aggressive long after a regulatory shock is poor process."
+    macro:
+      position: "reject"
+      confidence: 0.60
+      evidence_ids: ["e4"]
+      reasoning_trace: "Funding conditions do not favor leverage."
+    cio:
+      position: "reject"
+      confidence: 0.55
+      evidence_ids: []
+      reasoning_trace: "Will decide after the committee."
+
+task:
+  task_id: "task-finance-acme-long"
+  question: >-
+    Live sentiment on ticker ACME is mixed after an SEC comment letter.
+    A historical bullish strategy has a 61% paper win rate.
+    Should the fund execute an aggressive long?
+  ground_truth: "reject"
+  difficulty: "hard"
+  reference_solution: >-
+    Mixed sentiment plus an SEC comment letter is not a sufficient basis for
+    an aggressive long, even with a 61% paper backtest.
+  evidence:
+    - evidence_id: "e1"
+      content: "ACME received an SEC comment letter; live sentiment is mixed, not cleanly bullish."
+      source: "market-desk"
+    - evidence_id: "e2"
+      content: "A historical bullish overlay has a 61% paper win rate without transaction costs."
+      source: "quant-research"
+    - evidence_id: "e3"
+      content: "Paper win rates do not include gap risk or trading halt risk around regulatory news."
+      source: "risk-memo"
+    - evidence_id: "e4"
+      content: "Macro book is already long cyclicals; adding ACME concentrates factor exposure."
+      source: "portfolio-construction"

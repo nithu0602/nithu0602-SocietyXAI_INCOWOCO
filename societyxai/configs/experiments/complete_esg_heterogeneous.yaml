@@ -1,0 +1,93 @@
+experiment:
+  run_id: "complete-esg-heterogeneous"
+  task_id: "task-esg-terminate-supplier"
+  seed: 42
+  model_id: "openai/gpt-oss-120b"
+  provider: "groq"
+  temperature: 0.2
+  max_tokens: 256
+  architecture: "negotiation"
+  system_prompt: >-
+    Reply with a JSON object only:
+    {"position": "support" or "reject", "confidence": 0.0-1.0,
+     "evidence_ids": ["e1"], "reasoning_trace": "one short paragraph"}.
+    support means immediately terminate the supplier. reject means keep the contract for now.
+  number_of_agents: 5
+  number_of_rounds: 2
+  topology:
+    kind: "complete"
+  speaker_order:
+    order: ["sustainability", "finance", "operations", "legal", "community"]
+    deterministic: true
+  visibility:
+    previous_messages: true
+    confidence: true
+    majority_position: true
+  intervention:
+    type: "none"
+    target_id: "finance"
+  parser_version: "structured"
+  stopping_rule: "max_rounds"
+  agent_models:
+    sustainability: "openai/gpt-oss-120b"
+    finance: "openai/gpt-oss-20b"
+    operations: "openai/gpt-oss-20b"
+    legal: "openai/gpt-oss-120b"
+    community: "openai/gpt-oss-120b"
+  agent_roles:
+    sustainability: "sustainability officer"
+    finance: "financial officer"
+    operations: "operations manager"
+    legal: "legal compliance"
+    community: "community advocate"
+  initial_beliefs:
+    sustainability:
+      position: "support"
+      confidence: 0.86
+      evidence_ids: ["e1", "e2"]
+      reasoning_trace: "Spill plus unpaid overtime is a values breach."
+    finance:
+      position: "reject"
+      confidence: 0.80
+      evidence_ids: ["e3"]
+      reasoning_trace: "Terminating destroys $4.2M savings."
+    operations:
+      position: "reject"
+      confidence: 0.58
+      evidence_ids: ["e3", "e4"]
+      reasoning_trace: "Switching factories will disrupt delivery."
+    legal:
+      position: "support"
+      confidence: 0.64
+      evidence_ids: ["e1", "e2"]
+      reasoning_trace: "Reported violations create legal exposure if ignored."
+    community:
+      position: "support"
+      confidence: 0.88
+      evidence_ids: ["e1", "e2"]
+      reasoning_trace: "Workers and the river are already harmed."
+
+task:
+  task_id: "task-esg-terminate-supplier"
+  question: >-
+    Supplier Northwind Textiles promised zero wastewater discharge, but news
+    reports describe a chemical spill and unpaid overtime. The contract saves
+    $4.2M a year. Should the company immediately terminate the supplier?
+  ground_truth: "support"
+  difficulty: "hard"
+  reference_solution: >-
+    Verified severe environmental and labor breaches typically outweigh near-term
+    savings; termination or equivalent contractual kill-switch is warranted.
+  evidence:
+    - evidence_id: "e1"
+      content: "News reports describe a chemical spill into a local river from the supplier's mill."
+      source: "wire-service"
+    - evidence_id: "e2"
+      content: "Workers at the mill allege unpaid overtime and blocked exit during peak shifts."
+      source: "labor-dispatch"
+    - evidence_id: "e3"
+      content: "The current contract saves the company $4.2M annually versus the next qualified mill."
+      source: "procurement"
+    - evidence_id: "e4"
+      content: "Internal supplier scorecard still lists Northwind as 'preferred' with no on-site audit this year."
+      source: "supplier-docs"
