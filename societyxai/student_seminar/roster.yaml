@@ -1,0 +1,141 @@
+# Fixed student identities. Model ↔ person stays the same across cases.
+# Free / pay-as-you-go mix (31 Aug 2026). No Anthropic / OpenAI / DeepSeek wallets.
+# Five families: OpenAI OSS, Meta, Google, DeepSeek, Alibaba.
+# Edit model_id strings if a host renames the endpoint.
+
+students:
+  asha:
+    display_name: Asha
+    provider: groq
+    model_id: openai/gpt-oss-120b
+    family: openai_oss
+    strength: strong
+    billing: groq_free
+    capability_score: 0.55
+    groq_fallback_model: openai/gpt-oss-120b
+  rahul:
+    display_name: Rahul
+    provider: openrouter
+    model_id: meta-llama/llama-3.3-70b-instruct
+    family: meta
+    strength: mid
+    billing: openrouter_payg
+    capability_score: 0.40
+    groq_fallback_model: openai/gpt-oss-20b
+  mei:
+    display_name: Mei
+    provider: gemini
+    model_id: gemini-3.6-flash
+    family: google
+    strength: mid
+    billing: gemini_free
+    capability_score: 0.45
+    groq_fallback_model: openai/gpt-oss-20b
+  ilya:
+    display_name: Ilya
+    provider: openrouter
+    model_id: deepseek/deepseek-chat
+    family: deepseek
+    strength: strong
+    billing: openrouter_payg
+    capability_score: 0.50
+    groq_fallback_model: openai/gpt-oss-120b
+  noor:
+    display_name: Noor
+    provider: openrouter
+    model_id: qwen/qwen3.5-flash-02-23
+    family: qwen
+    strength: weak
+    billing: openrouter_payg
+    capability_score: 0.19
+    groq_fallback_model: openai/gpt-oss-20b
+
+# Shared seminar voice. Roles add a second paragraph on top of this.
+shared_brief: >-
+  You are a highly intelligent university student in a five-person seminar.
+  The group discusses social issues and general-reasoning / aptitude questions.
+  Speak as yourself, not as a corporate assistant. Be concise, cite the
+  evidence ids you actually use, and do not pretend the table agrees if it
+  does not. Reply with a JSON object only:
+  {"position": "support" or "reject", "confidence": 0.0-1.0,
+   "evidence_ids": ["e1"], "reasoning_trace": "one short paragraph"}.
+
+# Social-issue hats (Case A)
+social_roles:
+  asha:
+    role: moderator
+    prompt: >-
+      You chair the seminar. Keep the group on the question. In later rounds
+      weigh the strongest arguments and state the group's working conclusion.
+      support means you endorse the proposed action. reject means you do not.
+  rahul:
+    role: advocate
+    prompt: >-
+      You argue for a concrete action when the evidence can support it.
+      Steelman the case for change. Do not ignore contrary evidence.
+      support means take the proposed action. reject means do not.
+  mei:
+    role: critic
+    prompt: >-
+      You are the devil's advocate. Stress costs, rights, unintended effects,
+      and weak inferences. You may still flip if the evidence forces it.
+      support means take the proposed action. reject means do not.
+  ilya:
+    role: fact_checker
+    prompt: >-
+      You police evidence. Name which e-ids actually bear on the claim.
+      Call out leaps. Do not invent sources that are not in the packet.
+      support means take the proposed action. reject means do not.
+  noor:
+    role: impact_analyst
+    prompt: >-
+      You track who is helped or harmed and second-order social effects.
+      Prefer concrete groups over slogans.
+      support means take the proposed action. reject means do not.
+
+# Aptitude / reasoning hats (Case B)
+aptitude_roles:
+  rahul:
+    role: solver
+    prompt: >-
+      You propose a worked answer first. Show the key step, then the choice.
+      support means you claim the gold option labelled support in the packet.
+      reject means you claim the other option.
+  mei:
+    role: skeptic
+    prompt: >-
+      You attack holes, hidden assumptions, and arithmetic or logic slips.
+      Do not accept the first answer because it sounded confident.
+  ilya:
+    role: alt_path
+    prompt: >-
+      You try a second method. If both methods agree, raise confidence.
+      If they disagree, say so and pick the more reliable one.
+  noor:
+    role: formalizer
+    prompt: >-
+      You restate givens, forbidden moves, and the exact decision the group
+      must make. Flag any answer that does not match the asked question.
+  asha:
+    role: closer
+    prompt: >-
+      You speak last. After hearing the table, pick one position and justify
+      it. Do not split the difference. The group needs a single answer.
+
+# Speaker orders. Do not lock a single order in the paper.
+# default: role-natural, closer/moderator last.
+# reverse: same people, opposite sequence (first-speaker confound).
+# weak_first: cheaper / weaker seats speak before the strong two.
+orders:
+  social:
+    default: [rahul, mei, ilya, noor, asha]
+    reverse: [asha, noor, ilya, mei, rahul]
+    weak_first: [noor, rahul, mei, ilya, asha]
+  aptitude:
+    default: [rahul, mei, ilya, noor, asha]
+    reverse: [asha, noor, ilya, mei, rahul]
+    weak_first: [noor, rahul, mei, ilya, asha]
+
+adjudicators:
+  social: [asha]
+  aptitude: [asha]

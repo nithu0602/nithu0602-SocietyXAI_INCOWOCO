@@ -1,0 +1,31 @@
+id: aptitude-mislabeled-boxes
+question: >-
+  There are three boxes labelled Apples, Oranges, and Apples & Oranges.
+  Every label is wrong. You may take only one fruit from one box, without
+  looking inside. From which box should you take the fruit, and how can you
+  then correctly label all three boxes?
+  Reply support if you should take the fruit from the box labelled
+  Apples & Oranges (then relabel the other two by deduction).
+  Reply reject if you should take the fruit from the Apples box or the
+  Oranges box instead.
+  Reason on your own first. After you see others, you may debate.
+  State confidence from 0 to 1 (0% to 100%).
+ground_truth: support
+support_means: take one fruit from the box labelled Apples & Oranges, then relabel the rest by deduction
+reject_means: take the fruit from the Apples box or the Oranges box
+difficulty: medium
+reference_solution: >-
+  The mixed label cannot be mixed, so it is a pure box. Draw from
+  Apples & Oranges. If you get an apple, that box is Apples. The box
+  labelled Oranges cannot be oranges and cannot be apples, so it is mixed.
+  The remaining box labelled Apples is Oranges. Symmetric if you draw an orange.
+evidence:
+  - evidence_id: e1
+    content: "Every label is wrong."
+    source: "problem"
+  - evidence_id: e2
+    content: "You may take only one fruit from one box."
+    source: "problem"
+  - evidence_id: e3
+    content: "The three labels are Apples, Oranges, and Apples & Oranges."
+    source: "problem"

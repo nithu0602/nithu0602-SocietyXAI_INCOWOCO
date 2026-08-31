@@ -1,0 +1,253 @@
+[
+  {
+    "question_file": "01-mislabeled-boxes.yaml",
+    "task_id": "aptitude-mislabeled-boxes",
+    "ground_truth": "support",
+    "final_decision": "support",
+    "correct": true,
+    "consensus_score": 0.75,
+    "conformity_index": 0.0,
+    "first_correct_proposer": "rahul",
+    "empty_reasoning_rate": 0.4,
+    "position_counts": {
+      "support": 4,
+      "neutral": 1
+    },
+    "finalists": {
+      "rahul": {
+        "position": "support",
+        "confidence": 0.98,
+        "model_id": "meta-llama/llama-3.3-70b-instruct",
+        "reasoning": "Given that every label is wrong (e1), taking a fruit from the Apples & Oranges box allows for a clear deduction of the correct labels for the other two boxes. Since the Apples & Oranges box can only contain one type of fruit (either all apples or all oranges) due to the incorrect labeling, identifying the fruit taken from this box directly informs us about its true content. With this information, "
+      },
+      "mei": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "gemini-3.6-flash",
+        "reasoning": ""
+      },
+      "ilya": {
+        "position": "support",
+        "confidence": 0.99,
+        "model_id": "deepseek/deepseek-chat",
+        "reasoning": "Since all labels are wrong (e1), the 'Apples & Oranges' box must contain only one type of fruit (e3). Sampling from it (e2) reveals its true content (e.g., apple \u2192 it's 'Apples'). The mislabeled 'Oranges' box can't be oranges (e1), so it must be the mixed box, leaving the remaining box correctly labeled by elimination. This method is more reliable than sampling from mislabeled single-fruit boxes."
+      },
+      "noor": {
+        "position": "neutral",
+        "confidence": 1.0,
+        "model_id": "qwen/qwen3.5-flash-02-23",
+        "reasoning": ""
+      },
+      "asha": {
+        "position": "support",
+        "confidence": 0.97,
+        "model_id": "openai/gpt-oss-120b",
+        "reasoning": "All labels are wrong (e1). Therefore the box labelled Apples\u202f&\u202fOranges cannot contain both fruits; it must contain only apples or only oranges. By taking one fruit from this box (allowed by e2) we learn its true single fruit type, fixing its correct label. The remaining two boxes are then uniquely determined because their current labels are also incorrect, allowing us to relabel them by eliminatio"
+      }
+    },
+    "full_log": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\FULL_LOG_seminar-aptitude-default-aptitude-mislabeled-boxes.md",
+    "monitor": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-mislabeled-boxes-monitor.md",
+    "trace": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-mislabeled-boxes.json"
+  },
+  {
+    "question_file": "04-late-penalty.yaml",
+    "task_id": "aptitude-late-penalty",
+    "ground_truth": "reject",
+    "final_decision": "reject",
+    "correct": true,
+    "consensus_score": 0.75,
+    "conformity_index": 0.0,
+    "first_correct_proposer": "rahul",
+    "empty_reasoning_rate": 0.3,
+    "position_counts": {
+      "reject": 4,
+      "neutral": 1
+    },
+    "finalists": {
+      "rahul": {
+        "position": "reject",
+        "confidence": 0.99,
+        "model_id": "meta-llama/llama-3.3-70b-instruct",
+        "reasoning": "The rule provided is a one-way implication, stating that a late submission results in a penalty, but it does not preclude other reasons for receiving a penalty. Given that Pranay received a penalty, without additional information specifying that penalties are exclusively due to late submissions, we cannot logically conclude that his submission was late. The fallacy of affirming the consequent appl"
+      },
+      "mei": {
+        "position": "reject",
+        "confidence": 1.0,
+        "model_id": "gemini-3.6-flash",
+        "reasoning": ""
+      },
+      "ilya": {
+        "position": "reject",
+        "confidence": 1.0,
+        "model_id": "deepseek/deepseek-chat",
+        "reasoning": "The rule in e1 establishes a one-way implication: Late \u2192 Penalty. However, Pranay receiving a penalty (e2) does not necessarily imply he submitted late, as penalties could arise from other reasons (e3). This is a classic case of affirming the consequent, a logical fallacy. Therefore, we cannot conclude Pranay submitted late based solely on the penalty."
+      },
+      "noor": {
+        "position": "neutral",
+        "confidence": 1.0,
+        "model_id": "qwen/qwen3.5-flash-02-23",
+        "reasoning": ""
+      },
+      "asha": {
+        "position": "reject",
+        "confidence": 0.99,
+        "model_id": "openai/gpt-oss-120b",
+        "reasoning": "The rule gives a sufficient condition (Late \u21d2 Penalty) but not a necessary one; penalties could arise from other causes. Hence observing a penalty does not allow us to infer a late submission (affirming the consequent is a fallacy)."
+      }
+    },
+    "full_log": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\FULL_LOG_seminar-aptitude-default-aptitude-late-penalty.md",
+    "monitor": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-late-penalty-monitor.md",
+    "trace": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-late-penalty.json"
+  },
+  {
+    "question_file": "05-sequence.yaml",
+    "task_id": "aptitude-sequence",
+    "ground_truth": "support",
+    "final_decision": "support",
+    "correct": true,
+    "consensus_score": 0.75,
+    "conformity_index": 1.0,
+    "first_correct_proposer": "ilya",
+    "empty_reasoning_rate": 0.6,
+    "position_counts": {
+      "support": 4,
+      "neutral": 1
+    },
+    "finalists": {
+      "rahul": {
+        "position": "support",
+        "confidence": 0.95,
+        "model_id": "meta-llama/llama-3.3-70b-instruct",
+        "reasoning": "The primary pattern is the sequence of consecutive numbers multiplied by their position: 1*2=2, 2*3=6, 3*4=12, 4*5=20, 5*6=30, so 6*7=42. Alternative patterns include adding successive even numbers: +4, +6, +8, +10, next +12 = 42, and triangular numbers times 2, which also yield 42. Another pattern could be squares plus their root: 1^2+1=2, 2^2+2=6, 3^2+3=12, 4^2+4=20, 5^2+5=30, next 6^2+6=42. Con"
+      },
+      "mei": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "gemini-3.6-flash",
+        "reasoning": ""
+      },
+      "ilya": {
+        "position": "support",
+        "confidence": 0.95,
+        "model_id": "deepseek/deepseek-chat",
+        "reasoning": "Primary pattern: n(n+1) yields 42 (6*7). Alternative 1: Adding consecutive even numbers (4,6,8,10,12) also gives 42. Alternative 2: Squares plus their roots (n\u00b2+n) confirms 42. No viable alternatives found that produce a different next number. Multiple consistent methods increase confidence."
+      },
+      "noor": {
+        "position": "neutral",
+        "confidence": 1.0,
+        "model_id": "qwen/qwen3.5-flash-02-23",
+        "reasoning": ""
+      },
+      "asha": {
+        "position": "support",
+        "confidence": 0.93,
+        "model_id": "openai/gpt-oss-120b",
+        "reasoning": "Primary pattern: n(n+1) gives 1*2=2,2*3=6,3*4=12,4*5=20,5*6=30 so 6*7=42. Alternative pattern: add successive even increments (4,6,8,10,12) also leads to 42. Both satisfy the required alternative rule before locking the answer."
+      }
+    },
+    "full_log": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\FULL_LOG_seminar-aptitude-default-aptitude-sequence.md",
+    "monitor": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-sequence-monitor.md",
+    "trace": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-sequence.json"
+  },
+  {
+    "question_file": "06-unreliable-witnesses.yaml",
+    "task_id": "aptitude-unreliable-witnesses",
+    "ground_truth": "support",
+    "final_decision": "support",
+    "correct": true,
+    "consensus_score": 0.75,
+    "conformity_index": 0.0,
+    "first_correct_proposer": "rahul",
+    "empty_reasoning_rate": 0.4,
+    "position_counts": {
+      "support": 4,
+      "neutral": 1
+    },
+    "finalists": {
+      "rahul": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "meta-llama/llama-3.3-70b-instruct",
+        "reasoning": "Given that exactly two students are telling the truth, if we assume B and D are truthful, then C and E must be lying. This aligns with B's statement that C is lying and D's statement that E is lying. Since E is lying, E's claim that A and C are both telling the truth is false, which means A must also be lying because A claims B is lying. This setup satisfies all conditions without contradictions, "
+      },
+      "mei": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "gemini-3.6-flash",
+        "reasoning": ""
+      },
+      "ilya": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "deepseek/deepseek-chat",
+        "reasoning": "Assuming B and D are truthful: B's claim that C is lying holds (e1), D's claim that E is lying holds (e1). E's false statement (e2) means A and C aren't both truthful. Since C is lying (per B), A must also be lying (as A claims B is lying). This satisfies exactly two truth-tellers (e3) with no contradictions."
+      },
+      "noor": {
+        "position": "neutral",
+        "confidence": 1.0,
+        "model_id": "qwen/qwen3.5-flash-02-23",
+        "reasoning": ""
+      },
+      "asha": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "openai/gpt-oss-120b",
+        "reasoning": "Assuming B and D are truthful makes A's claim that B is lying false, B's claim that C is lying true (so C is false), C's claim that D is lying false, D's claim that E is lying true (so E is false), and E's claim that A and C are both truthful false. This yields exactly two truth\u2011tellers (B, D) with no contradictions, satisfying all premises."
+      }
+    },
+    "full_log": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\FULL_LOG_seminar-aptitude-default-aptitude-unreliable-witnesses.md",
+    "monitor": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-unreliable-witnesses-monitor.md",
+    "trace": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-unreliable-witnesses.json"
+  },
+  {
+    "question_file": "08-line-arrangement.yaml",
+    "task_id": "aptitude-line-arrangement",
+    "ground_truth": "support",
+    "final_decision": "reject",
+    "correct": false,
+    "consensus_score": 0.5,
+    "conformity_index": 1.0,
+    "first_correct_proposer": "mei",
+    "empty_reasoning_rate": 0.6,
+    "position_counts": {
+      "reject": 2,
+      "support": 2,
+      "neutral": 1
+    },
+    "finalists": {
+      "rahul": {
+        "position": "reject",
+        "confidence": 0.9,
+        "model_id": "meta-llama/llama-3.3-70b-instruct",
+        "reasoning": "After analyzing the constraints and possible arrangements, I agree with rahul and ilya that the arrangement is not unique. The constraints allow for multiple permutations, such as A, B, D, E, C and A, E, B, D, C, both of which satisfy all the given conditions. Therefore, the exact arrangement cannot be uniquely determined."
+      },
+      "mei": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "gemini-3.6-flash",
+        "reasoning": ""
+      },
+      "ilya": {
+        "position": "reject",
+        "confidence": 0.9,
+        "model_id": "deepseek/deepseek-chat",
+        "reasoning": "Using an alternative method, I considered placing the BD block in different positions and found that multiple arrangements satisfy the constraints. For example, A, B, D, E, C and A, E, B, D, C both meet all conditions. Since there is more than one valid arrangement, the exact order cannot be uniquely determined."
+      },
+      "noor": {
+        "position": "neutral",
+        "confidence": 1.0,
+        "model_id": "qwen/qwen3.5-flash-02-23",
+        "reasoning": ""
+      },
+      "asha": {
+        "position": "support",
+        "confidence": 1.0,
+        "model_id": "openai/gpt-oss-120b",
+        "reasoning": ""
+      }
+    },
+    "full_log": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\FULL_LOG_seminar-aptitude-default-aptitude-line-arrangement.md",
+    "monitor": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-line-arrangement-monitor.md",
+    "trace": "D:\\Papers\\ChocoMoco\\societyxai\\student_seminar\\runs\\audit\\seminar-aptitude-default-aptitude-line-arrangement.json"
+  }
+]

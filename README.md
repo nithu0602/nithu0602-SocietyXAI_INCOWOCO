@@ -2,18 +2,21 @@
 
 Causal explainability of belief dynamics and consensus in multi-agent LLM societies.
 
-The **full project record** (what was built, every live run, every example) is:
+The **final project document** (history, Phase 1 Groq niches, Phase 2 five-family seminar, all result tables) is:
 
 **[docs/PROJECT.md](docs/PROJECT.md)**
 
-The budget heterogeneous mix figure is kept at [`image.png`](image.png) and [`docs/figures/heterogeneous-mix-budget.png`](docs/figures/heterogeneous-mix-budget.png).
+Manuscript-shaped Results cut: **[docs/paper-results.md](docs/paper-results.md)**.
+
+There is **no judge model**. Agents debate; the orchestrator is code.
 
 ## Layout
 
 ```
-docs/PROJECT.md          project history + all Groq results
-docs/original-plan.pdf   source research plan
-societyxai/              canonical runnable package
+docs/PROJECT.md            final record + all live results
+docs/paper-results.md      paper Results section
+docs/original-plan.pdf     source research plan
+societyxai/                canonical runnable package
 ```
 
 ## Run
@@ -24,14 +27,19 @@ pip install -e .
 python -m pytest -q
 ```
 
-Set `GROQ_API_KEY` in `.env` (this folder). Then:
+**Phase 1 (Groq complete architectures).** Set `GROQ_API_KEY` in the repo-root `.env` (this folder).
 
 ```bash
 python -m societyxai run --config configs/experiments/complete_healthcare_consultation.yaml --log-doc docs/EXPERIMENT_LOG.md
-python scripts/run_complete_architectures.py
 ```
 
-There is **no judge model**. Agents debate; the orchestrator is code.
+**Phase 2 (heterogeneous seminar).** Also `GEMINI_API_KEY` and `OPENROUTER_API_KEY` (or an OpenRouter `sk-or-` key in `DASHSCOPE_API_KEY`).
 
-Live complete-architecture traces: `societyxai/runs/complete-*.json`.
-Turn logs: `societyxai/docs/EXPERIMENT_LOG.md`.
+```bash
+python student_seminar/ping_keys.py
+python student_seminar/run.py --case social --order default
+python student_seminar/run_audit.py
+```
+
+Groq traces: `societyxai/runs/complete-*.json`.  
+Seminar / audit logs: `societyxai/student_seminar/runs/`.

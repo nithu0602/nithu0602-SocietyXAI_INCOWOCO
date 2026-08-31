@@ -1,0 +1,75 @@
+{
+  "run_id": "seminar-aptitude-default-aptitude-mislabeled-boxes",
+  "task_id": "aptitude-mislabeled-boxes",
+  "ground_truth": "support",
+  "final_decision": "support",
+  "correct": true,
+  "consensus_score": 0.75,
+  "belief_divergence": 0.4,
+  "convergence_round": -1,
+  "conformity_index": 0.0,
+  "position_counts": {
+    "support": 4,
+    "neutral": 1
+  },
+  "first_correct_proposer": "rahul",
+  "influence_totals": {},
+  "parse_quality": {
+    "empty_reasoning_rate": 0.4,
+    "empty_evidence_rate": 0.4
+  },
+  "finalists": {
+    "rahul": {
+      "position": "support",
+      "confidence": 0.98,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Given that every label is wrong (e1), taking a fruit from the Apples & Oranges box allows for a clear deduction of the correct labels for the other two boxes. Since the Apples & Oranges box can only contain one type of fruit (either all apples or all oranges) due to the incorrect labeling, identifying the fruit taken from this box directly informs us about its true content. With this information, and knowing the other labels are also incorrect (e1), we can correctly relabel the remaining boxes by the process of elimination, as the incorrect labels provide sufficient constraints to solve the puzzle.",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "role": "solver"
+    },
+    "mei": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "gemini-3.6-flash",
+      "role": "skeptic"
+    },
+    "ilya": {
+      "position": "support",
+      "confidence": 0.99,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Since all labels are wrong (e1), the 'Apples & Oranges' box must contain only one type of fruit (e3). Sampling from it (e2) reveals its true content (e.g., apple \u2192 it's 'Apples'). The mislabeled 'Oranges' box can't be oranges (e1), so it must be the mixed box, leaving the remaining box correctly labeled by elimination. This method is more reliable than sampling from mislabeled single-fruit boxes.",
+      "model_id": "deepseek/deepseek-chat",
+      "role": "alt_path"
+    },
+    "noor": {
+      "position": "neutral",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "qwen/qwen3.5-flash-02-23",
+      "role": "formalizer"
+    },
+    "asha": {
+      "position": "support",
+      "confidence": 0.97,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "All labels are wrong (e1). Therefore the box labelled Apples\u202f&\u202fOranges cannot contain both fruits; it must contain only apples or only oranges. By taking one fruit from this box (allowed by e2) we learn its true single fruit type, fixing its correct label. The remaining two boxes are then uniquely determined because their current labels are also incorrect, allowing us to relabel them by elimination.",
+      "model_id": "openai/gpt-oss-120b",
+      "role": "closer"
+    }
+  }
+}

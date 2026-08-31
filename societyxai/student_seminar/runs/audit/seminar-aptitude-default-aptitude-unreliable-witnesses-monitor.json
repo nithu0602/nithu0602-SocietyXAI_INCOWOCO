@@ -1,0 +1,75 @@
+{
+  "run_id": "seminar-aptitude-default-aptitude-unreliable-witnesses",
+  "task_id": "aptitude-unreliable-witnesses",
+  "ground_truth": "support",
+  "final_decision": "support",
+  "correct": true,
+  "consensus_score": 0.75,
+  "belief_divergence": 0.4,
+  "convergence_round": -1,
+  "conformity_index": 0.0,
+  "position_counts": {
+    "support": 4,
+    "neutral": 1
+  },
+  "first_correct_proposer": "rahul",
+  "influence_totals": {},
+  "parse_quality": {
+    "empty_reasoning_rate": 0.4,
+    "empty_evidence_rate": 0.4
+  },
+  "finalists": {
+    "rahul": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Given that exactly two students are telling the truth, if we assume B and D are truthful, then C and E must be lying. This aligns with B's statement that C is lying and D's statement that E is lying. Since E is lying, E's claim that A and C are both telling the truth is false, which means A must also be lying because A claims B is lying. This setup satisfies all conditions without contradictions, confirming B and D as the truth-tellers.",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "role": "solver"
+    },
+    "mei": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "gemini-3.6-flash",
+      "role": "skeptic"
+    },
+    "ilya": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Assuming B and D are truthful: B's claim that C is lying holds (e1), D's claim that E is lying holds (e1). E's false statement (e2) means A and C aren't both truthful. Since C is lying (per B), A must also be lying (as A claims B is lying). This satisfies exactly two truth-tellers (e3) with no contradictions.",
+      "model_id": "deepseek/deepseek-chat",
+      "role": "alt_path"
+    },
+    "noor": {
+      "position": "neutral",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "qwen/qwen3.5-flash-02-23",
+      "role": "formalizer"
+    },
+    "asha": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Assuming B and D are truthful makes A's claim that B is lying false, B's claim that C is lying true (so C is false), C's claim that D is lying false, D's claim that E is lying true (so E is false), and E's claim that A and C are both truthful false. This yields exactly two truth\u2011tellers (B, D) with no contradictions, satisfying all premises.",
+      "model_id": "openai/gpt-oss-120b",
+      "role": "closer"
+    }
+  }
+}

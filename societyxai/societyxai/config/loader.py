@@ -10,8 +10,7 @@ from pydantic import ValidationError
 
 from societyxai.config.schema import ExperimentConfig
 from societyxai.models.base import ModelBackend
-from societyxai.models.ollama import OllamaBackend
-from societyxai.models.groq import GroqBackend
+from societyxai.models.factory import SUPPORTED_PROVIDERS, build_backend
 from societyxai.models.registry import BackendRegistry
 from societyxai.tasks.base import EvidenceItem, Task
 
@@ -52,60 +51,40 @@ ARCHITECTURE_FLAVORS = {
         "You are in a stakeholder negotiation. Your objective may conflict with others. "
         "Do not pretend consensus exists if it does not."
     ),
+    "seminar": (
+        "You are a highly intelligent university student in a small-group seminar. "
+        "Discuss in good faith. Challenge weak reasoning. Do not pretend agreement."
+    ),
 }
+
+
+def _backend_kwargs(config: ExperimentConfig) -> dict[str, float | int | None]:
+    return {
+        "default_temperature": config.temperature,
+        "default_max_tokens": config.max_tokens,
+        "default_seed": config.seed,
+    }
 
 
 def _build_backend(config: ExperimentConfig) -> ModelBackend:
     """Instantiate a ModelBackend from the provider declared in *config*."""
-    provider = config.provider.lower()
-    if provider == "ollama":
-        return OllamaBackend(
-            model_id=config.model_id,
-            default_temperature=config.temperature,
-            default_max_tokens=config.max_tokens,
-            default_seed=config.seed,
-        )
-    if provider == "groq":
-        from societyxai.models.groq import GroqBackend
-
-        return GroqBackend(
-            model_id=config.model_id,
-            default_temperature=config.temperature,
-            default_max_tokens=config.max_tokens,
-            default_seed=config.seed,
-        )
-    raise ExperimentLoaderError(
-        f"Unsupported provider '{config.provider}'. "
-        "Supported providers: ollama, groq."
-    )
+    try:
+        return build_backend(config.provider, config.model_id, **_backend_kwargs(config))
+    except ValueError as exc:
+        raise ExperimentLoaderError(str(exc)) from exc
 
 
 def _build_backend_for_model(
     model_id: str,
     config: ExperimentConfig,
+    provider: str | None = None,
 ) -> ModelBackend:
-    """Instantiate a ModelBackend for a specific model_id using the experiment's provider."""
-    provider = config.provider.lower()
-    if provider == "ollama":
-        return OllamaBackend(
-            model_id=model_id,
-            default_temperature=config.temperature,
-            default_max_tokens=config.max_tokens,
-            default_seed=config.seed,
-        )
-    if provider == "groq":
-        from societyxai.models.groq import GroqBackend
-
-        return GroqBackend(
-            model_id=model_id,
-            default_temperature=config.temperature,
-            default_max_tokens=config.max_tokens,
-            default_seed=config.seed,
-        )
-    raise ExperimentLoaderError(
-        f"Unsupported provider '{config.provider}'. "
-        "Supported providers: ollama, groq."
-    )
+    """Instantiate a ModelBackend for a specific model_id and optional provider."""
+    chosen = (provider or config.provider).lower()
+    try:
+        return build_backend(chosen, model_id, **_backend_kwargs(config))
+    except ValueError as exc:
+        raise ExperimentLoaderError(str(exc)) from exc
 
 
 def _build_agents(config: ExperimentConfig) -> list[Agent]:
@@ -145,13 +124,19 @@ def _build_backend_registry(config: ExperimentConfig) -> BackendRegistry | None:
 
     primary = _build_backend(config)
     registry = BackendRegistry(default=primary)
+    agent_providers = config.agent_providers or {}
 
-    unique_model_ids = set(agent_models.values())
-    for model_id in unique_model_ids:
-        if model_id == config.model_id:
+    seen: set[tuple[str, str]] = set()
+    for agent_id, model_id in agent_models.items():
+        provider = agent_providers.get(agent_id, config.provider)
+        key = (provider.lower(), model_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        if provider.lower() == config.provider.lower() and model_id == config.model_id:
             registry.register(model_id, primary)
         else:
-            backend = _build_backend_for_model(model_id, config)
+            backend = _build_backend_for_model(model_id, config, provider=provider)
             registry.register(model_id, backend)
 
     return registry

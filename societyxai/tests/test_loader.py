@@ -287,7 +287,7 @@ def test_build_raises_for_unsupported_provider(
     minimal_task_dict: dict,
 ) -> None:
     bad = dict(minimal_experiment_dict)
-    bad["provider"] = "openai"
+    bad["provider"] = "not-a-real-provider"
     config = ExperimentConfig(**bad)
     with pytest.raises(ExperimentLoaderError, match="Unsupported provider"):
         ExperimentLoader.build(config, minimal_task_dict)

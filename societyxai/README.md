@@ -14,7 +14,7 @@ pip install -e .
 python -m pytest -q
 ```
 
-Set `GROQ_API_KEY` in `.env` (this folder or the parent `ChocoMoco` folder).
+Set `GROQ_API_KEY` in `.env` (this folder or the repo root one level up).
 
 ```bash
 python -m societyxai run --config configs/experiments/complete_healthcare_consultation.yaml --log-doc docs/EXPERIMENT_LOG.md
@@ -35,3 +35,5 @@ python scripts/run_complete_architectures.py
 Every turn is appended to `docs/EXPERIMENT_LOG.md`. JSON traces go to `runs/`.
 
 Ollama remains supported (`provider: ollama`) for local replication.
+
+The five-student heterogeneous pack (question inbox, seminar roles, speaker-order controls, monitor metrics) lives in [`student_seminar/`](student_seminar/README.md).

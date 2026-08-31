@@ -52,6 +52,7 @@ class VisibilityConfig(BaseModel):
     previous_messages: bool = True
     confidence: bool = False
     majority_position: bool = False
+    independent_first_round: bool = False
 
 
 class InterventionConfig(BaseModel):
@@ -105,6 +106,7 @@ class ExperimentConfig(BaseModel):
     parser_version: str = Field(min_length=1)
     stopping_rule: str = Field(min_length=1)
     agent_models: dict[str, str] | None = None
+    agent_providers: dict[str, str] | None = None
     agent_roles: dict[str, str] | None = None
     agent_prompts: dict[str, str] | None = None
     architecture: str | None = None
@@ -162,6 +164,22 @@ class ExperimentConfig(BaseModel):
             if unknown:
                 raise ValueError(
                     f"initial_beliefs references unknown agent IDs: {sorted(unknown)}"
+                )
+        return value
+
+    @field_validator("agent_providers")
+    @classmethod
+    def validate_agent_providers_keys(cls, value: dict[str, str] | None, info: object) -> dict[str, str] | None:
+        if value is None:
+            return value
+        data = info.data if hasattr(info, "data") else {}
+        speaker_order = data.get("speaker_order")
+        if speaker_order is not None:
+            known_ids = set(speaker_order.order) if hasattr(speaker_order, "order") else set()
+            unknown = set(value.keys()) - known_ids
+            if unknown:
+                raise ValueError(
+                    f"agent_providers references unknown agent IDs: {sorted(unknown)}"
                 )
         return value
 

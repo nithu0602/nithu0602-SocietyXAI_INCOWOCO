@@ -1,0 +1,75 @@
+{
+  "run_id": "seminar-aptitude-default-aptitude-late-penalty",
+  "task_id": "aptitude-late-penalty",
+  "ground_truth": "reject",
+  "final_decision": "reject",
+  "correct": true,
+  "consensus_score": 0.75,
+  "belief_divergence": 0.4,
+  "convergence_round": -1,
+  "conformity_index": 0.0,
+  "position_counts": {
+    "reject": 4,
+    "neutral": 1
+  },
+  "first_correct_proposer": "rahul",
+  "influence_totals": {},
+  "parse_quality": {
+    "empty_reasoning_rate": 0.3,
+    "empty_evidence_rate": 0.3
+  },
+  "finalists": {
+    "rahul": {
+      "position": "reject",
+      "confidence": 0.99,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "The rule provided is a one-way implication, stating that a late submission results in a penalty, but it does not preclude other reasons for receiving a penalty. Given that Pranay received a penalty, without additional information specifying that penalties are exclusively due to late submissions, we cannot logically conclude that his submission was late. The fallacy of affirming the consequent applies here, as the presence of a penalty (the consequent) does not necessarily imply a late submission (the antecedent).",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "role": "solver"
+    },
+    "mei": {
+      "position": "reject",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "gemini-3.6-flash",
+      "role": "skeptic"
+    },
+    "ilya": {
+      "position": "reject",
+      "confidence": 1.0,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "The rule in e1 establishes a one-way implication: Late \u2192 Penalty. However, Pranay receiving a penalty (e2) does not necessarily imply he submitted late, as penalties could arise from other reasons (e3). This is a classic case of affirming the consequent, a logical fallacy. Therefore, we cannot conclude Pranay submitted late based solely on the penalty.",
+      "model_id": "deepseek/deepseek-chat",
+      "role": "alt_path"
+    },
+    "noor": {
+      "position": "neutral",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "qwen/qwen3.5-flash-02-23",
+      "role": "formalizer"
+    },
+    "asha": {
+      "position": "reject",
+      "confidence": 0.99,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "The rule gives a sufficient condition (Late \u21d2 Penalty) but not a necessary one; penalties could arise from other causes. Hence observing a penalty does not allow us to infer a late submission (affirming the consequent is a fallacy).",
+      "model_id": "openai/gpt-oss-120b",
+      "role": "closer"
+    }
+  }
+}

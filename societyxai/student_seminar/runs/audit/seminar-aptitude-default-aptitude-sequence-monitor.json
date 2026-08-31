@@ -1,0 +1,81 @@
+{
+  "run_id": "seminar-aptitude-default-aptitude-sequence",
+  "task_id": "aptitude-sequence",
+  "ground_truth": "support",
+  "final_decision": "support",
+  "correct": true,
+  "consensus_score": 0.75,
+  "belief_divergence": 0.4,
+  "convergence_round": -1,
+  "conformity_index": 1.0,
+  "position_counts": {
+    "support": 4,
+    "neutral": 1
+  },
+  "first_correct_proposer": "ilya",
+  "influence_totals": {
+    "ilya": 2,
+    "asha": 2,
+    "mei": 1,
+    "noor": 2,
+    "rahul": 1
+  },
+  "parse_quality": {
+    "empty_reasoning_rate": 0.6,
+    "empty_evidence_rate": 0.6
+  },
+  "finalists": {
+    "rahul": {
+      "position": "support",
+      "confidence": 0.95,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "The primary pattern is the sequence of consecutive numbers multiplied by their position: 1*2=2, 2*3=6, 3*4=12, 4*5=20, 5*6=30, so 6*7=42. Alternative patterns include adding successive even numbers: +4, +6, +8, +10, next +12 = 42, and triangular numbers times 2, which also yield 42. Another pattern could be squares plus their root: 1^2+1=2, 2^2+2=6, 3^2+3=12, 4^2+4=20, 5^2+5=30, next 6^2+6=42. Considering alternative patterns that could yield different numbers, such as n^2 + n or n^2 + (n-1), none provide a convincing alternative to 42. Given the consistency across multiple patterns, confidence in 42 as the next number is high.",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "role": "solver"
+    },
+    "mei": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "gemini-3.6-flash",
+      "role": "skeptic"
+    },
+    "ilya": {
+      "position": "support",
+      "confidence": 0.95,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Primary pattern: n(n+1) yields 42 (6*7). Alternative 1: Adding consecutive even numbers (4,6,8,10,12) also gives 42. Alternative 2: Squares plus their roots (n\u00b2+n) confirms 42. No viable alternatives found that produce a different next number. Multiple consistent methods increase confidence.",
+      "model_id": "deepseek/deepseek-chat",
+      "role": "alt_path"
+    },
+    "noor": {
+      "position": "neutral",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "qwen/qwen3.5-flash-02-23",
+      "role": "formalizer"
+    },
+    "asha": {
+      "position": "support",
+      "confidence": 0.93,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Primary pattern: n(n+1) gives 1*2=2,2*3=6,3*4=12,4*5=20,5*6=30 so 6*7=42. Alternative pattern: add successive even increments (4,6,8,10,12) also leads to 42. Both satisfy the required alternative rule before locking the answer.",
+      "model_id": "openai/gpt-oss-120b",
+      "role": "closer"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+id: aptitude-late-penalty
+question: >-
+  A university has this rule: If a student submits the assignment late,
+  the student receives a penalty. Pranay received a penalty.
+  Can we conclude that Pranay submitted the assignment late?
+  Reply support if we CAN conclude he submitted late.
+  Reply reject if we CANNOT conclude that (the inference is invalid).
+  Reason on your own first. After you see others, you may debate.
+  State confidence from 0 to 1 (0% to 100%).
+ground_truth: reject
+support_means: yes, we can conclude Pranay submitted late
+reject_means: no, we cannot conclude that from the rule plus the penalty
+difficulty: easy
+reference_solution: >-
+  The rule is Late → Penalty. Observing Penalty does not imply Late
+  (affirming the consequent). He may have been penalised for another reason.
+evidence:
+  - evidence_id: e1
+    content: "Rule: If a student submits late, the student receives a penalty."
+    source: "problem"
+  - evidence_id: e2
+    content: "Fact: Pranay received a penalty."
+    source: "problem"
+  - evidence_id: e3
+    content: "The question is whether Late follows from Penalty, not whether Penalty follows from Late."
+    source: "problem"

@@ -1,0 +1,83 @@
+{
+  "run_id": "seminar-social-default-social-campus-messaging-ban",
+  "task_id": "social-campus-messaging-ban",
+  "ground_truth": "reject",
+  "final_decision": "reject",
+  "correct": true,
+  "consensus_score": 0.75,
+  "belief_divergence": 0.4,
+  "convergence_round": -1,
+  "conformity_index": 0.0,
+  "position_counts": {
+    "reject": 4,
+    "neutral": 1
+  },
+  "first_correct_proposer": "rahul",
+  "influence_totals": {
+    "rahul": 4,
+    "mei": 3,
+    "ilya": 2,
+    "noor": 1
+  },
+  "parse_quality": {
+    "empty_reasoning_rate": 0.4444444444444444,
+    "empty_evidence_rate": 0.4444444444444444
+  },
+  "finalists": {
+    "rahul": {
+      "position": "reject",
+      "confidence": 0.9,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3",
+        "e4"
+      ],
+      "reasoning": "The existing evidence suggests that a 72-hour freeze may not be necessary, given that coordinated pile-on threads have been short-lived [e1] and existing rules already provide mechanisms for addressing severe harms like doxxing and true threats [e3]. Furthermore, the potential chilling effect on journalism [e2] and the risk of mission creep, as seen in the neighbouring university's experience [e4], outweigh the benefits of a broad freeze.",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "role": "advocate"
+    },
+    "mei": {
+      "position": "reject",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "gemini-3.6-flash",
+      "role": "critic"
+    },
+    "ilya": {
+      "position": "reject",
+      "confidence": 0.95,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3",
+        "e4"
+      ],
+      "reasoning": "The evidence supports rejecting the 72-hour freeze. Coordinated pile-ons were short-lived [e1], and existing rules already address severe harms like doxxing and true threats [e3]. The freeze risks chilling journalism, as anonymous posts have led to significant stories [e2], and the neighbouring university's misuse of a similar freeze [e4] highlights the potential for overreach. Narrower, case-by-case tools are more proportionate and effective.",
+      "model_id": "deepseek/deepseek-chat",
+      "role": "fact_checker"
+    },
+    "noor": {
+      "position": "neutral",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "qwen/qwen3.5-flash-02-23",
+      "role": "impact_analyst"
+    },
+    "asha": {
+      "position": "reject",
+      "confidence": 0.92,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3",
+        "e4"
+      ],
+      "reasoning": "The coordinated pile\u2011on threads were brief (<36h) [e1], and existing conduct rules already permit rapid removal of doxxing and threats [e3]. Anonymous posts have proven newsworthy, enabling the campus paper to break stories [e2]. Moreover, a peer institution\u2019s misuse of a similar freeze shows risk of overreach [e4]. Hence a narrower, case\u2011by\u2011case approach is more proportionate than a blanket 72\u2011hour freeze.",
+      "model_id": "openai/gpt-oss-120b",
+      "role": "moderator"
+    }
+  }
+}

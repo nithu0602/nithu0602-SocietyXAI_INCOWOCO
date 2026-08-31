@@ -1,0 +1,77 @@
+{
+  "run_id": "seminar-aptitude-default-aptitude-line-arrangement",
+  "task_id": "aptitude-line-arrangement",
+  "ground_truth": "support",
+  "final_decision": "reject",
+  "correct": false,
+  "consensus_score": 0.5,
+  "belief_divergence": 0.8,
+  "convergence_round": -1,
+  "conformity_index": 1.0,
+  "position_counts": {
+    "reject": 2,
+    "support": 2,
+    "neutral": 1
+  },
+  "first_correct_proposer": "mei",
+  "influence_totals": {
+    "ilya": 1,
+    "rahul": 1,
+    "noor": 1,
+    "mei": 1
+  },
+  "parse_quality": {
+    "empty_reasoning_rate": 0.6,
+    "empty_evidence_rate": 0.6
+  },
+  "finalists": {
+    "rahul": {
+      "position": "reject",
+      "confidence": 0.9,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "After analyzing the constraints and possible arrangements, I agree with rahul and ilya that the arrangement is not unique. The constraints allow for multiple permutations, such as A, B, D, E, C and A, E, B, D, C, both of which satisfy all the given conditions. Therefore, the exact arrangement cannot be uniquely determined.",
+      "model_id": "meta-llama/llama-3.3-70b-instruct",
+      "role": "solver"
+    },
+    "mei": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "gemini-3.6-flash",
+      "role": "skeptic"
+    },
+    "ilya": {
+      "position": "reject",
+      "confidence": 0.9,
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "reasoning": "Using an alternative method, I considered placing the BD block in different positions and found that multiple arrangements satisfy the constraints. For example, A, B, D, E, C and A, E, B, D, C both meet all conditions. Since there is more than one valid arrangement, the exact order cannot be uniquely determined.",
+      "model_id": "deepseek/deepseek-chat",
+      "role": "alt_path"
+    },
+    "noor": {
+      "position": "neutral",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "qwen/qwen3.5-flash-02-23",
+      "role": "formalizer"
+    },
+    "asha": {
+      "position": "support",
+      "confidence": 1.0,
+      "evidence_ids": [],
+      "reasoning": "",
+      "model_id": "openai/gpt-oss-120b",
+      "role": "closer"
+    }
+  }
+}

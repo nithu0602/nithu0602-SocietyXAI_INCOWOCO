@@ -1,0 +1,33 @@
+# =============================================================================
+# EDIT THIS FILE. This is the question the social-issue seminar will discuss.
+# support = take the proposed action. reject = do not take it.
+# =============================================================================
+
+id: social-campus-messaging-ban
+question: >-
+  After a week of coordinated pile-ons on the student forum, the university
+  proposes a 72-hour freeze on anonymous campus-wide posts whenever a
+  moderation team flags a thread as targeted harassment. Student journalists
+  say the freeze will hide newsworthy disputes. Should the university adopt
+  the 72-hour freeze?
+ground_truth: reject
+support_means: adopt the 72-hour freeze on anonymous campus-wide posts
+reject_means: do not adopt the freeze; use narrower, case-by-case tools
+difficulty: medium
+reference_solution: >-
+  A blanket time-lock on anonymous campus speech is a broad prior restraint
+  relative to the stated harm. Targeted, reviewable takedowns or identity
+  unmasking after a finding of harassment are narrower.
+evidence:
+  - evidence_id: e1
+    content: "The forum logged three coordinated pile-on threads this term, each lasting under 36 hours."
+    source: "moderation-log"
+  - evidence_id: e2
+    content: "The campus paper broke two stories that began as anonymous forum posts later confirmed on record."
+    source: "student-press"
+  - evidence_id: e3
+    content: "Existing rules already allow removing doxxing and true threats after a same-day review."
+    source: "code-of-conduct"
+  - evidence_id: e4
+    content: "A neighbouring university's 72-hour freeze was used twice on labour-dispute threads with no harassment finding."
+    source: "peer-campus-memo"

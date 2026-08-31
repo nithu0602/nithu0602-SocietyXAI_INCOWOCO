@@ -1,0 +1,41 @@
+# =============================================================================
+# EDIT THIS FILE. This is the aptitude / reasoning item the seminar will solve.
+# Use a question with one gold answer. Map that answer to support or reject.
+# Do not paste copyrighted exam items (no live GPQA / LSAT stems).
+# =============================================================================
+
+id: aptitude-committee-seats
+question: >-
+  A five-student seminar must pick a chair. Rules: (1) Asha will serve only
+  if Rahul does not. (2) If Mei is chair, Ilya must be secretary. (3) Noor
+  is secretary or the chair is Rahul. (4) Exactly one of {Asha, Rahul} is
+  an officer (chair or secretary). (5) Ilya is not secretary. Who is chair?
+  Reply support if the chair is Rahul. Reply reject if the chair is anyone else.
+ground_truth: support
+support_means: Rahul is chair
+reject_means: someone other than Rahul is chair
+difficulty: hard
+reference_solution: >-
+  From (5) Ilya is not secretary, so (2) forbids Mei as chair. From (3),
+  if Noor is not secretary then Rahul is chair. Officers are chair+secretary.
+  (4) says exactly one of Asha, Rahul is an officer. If Rahul is chair he is
+  an officer, so Asha is not an officer (hence not secretary). Then secretary
+  is Mei or Noor. (3) is satisfied if Noor is secretary or Rahul is chair.
+  If Rahul is not chair, then by (3) Noor is secretary. Then officers are
+  {chair, Noor}. Exactly one of Asha/Rahul is an officer, so the chair is
+  neither Asha nor Rahul — Mei or Ilya. Mei is forbidden by (2)+(5). Ilya
+  as chair with Noor secretary: Asha and Rahul are both non-officers, which
+  violates (4). So Rahul must be chair.
+evidence:
+  - evidence_id: e1
+    content: "Rule: Asha serves only if Rahul does not."
+    source: "problem"
+  - evidence_id: e2
+    content: "Rule: If Mei is chair, Ilya must be secretary."
+    source: "problem"
+  - evidence_id: e3
+    content: "Rule: Noor is secretary or the chair is Rahul."
+    source: "problem"
+  - evidence_id: e4
+    content: "Rule: exactly one of Asha and Rahul is an officer; Ilya is not secretary."
+    source: "problem"

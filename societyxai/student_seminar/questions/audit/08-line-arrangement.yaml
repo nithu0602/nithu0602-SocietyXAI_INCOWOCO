@@ -1,0 +1,35 @@
+id: aptitude-line-arrangement
+question: >-
+  Five students A, B, C, D and E are standing in a line.
+  A is somewhere to the left of C.
+  D is immediately to the right of B.
+  E is not at either end.
+  C is not adjacent to E.
+  B is somewhere to the right of A.
+  Can the exact arrangement be uniquely determined? If not, list the
+  possible arrangements.
+  Reply support if the arrangement is unique and is A, E, B, D, C
+  (left to right). Reply reject if you think it is not unique or you
+  name a different order.
+  Reason on your own first. After you see others, you may debate.
+  State confidence from 0 to 1 (0% to 100%).
+ground_truth: support
+support_means: unique line A-E-B-D-C
+reject_means: not unique, or a different arrangement
+difficulty: hard
+reference_solution: >-
+  BD is a block. B cannot be first because A must be left of B.
+  B=2, D=3 forces E=4 and C=5, but then C is adjacent to E. Invalid.
+  B=3, D=4 forces E=2 and A=1, C=5: A E B D C. All constraints hold.
+  B=4, D=5 always makes C adjacent to E or violates A-left-of-C.
+  So the only arrangement is A E B D C.
+evidence:
+  - evidence_id: e1
+    content: "A is left of C. B is right of A. D is immediately right of B (block BD)."
+    source: "problem"
+  - evidence_id: e2
+    content: "E is not at either end."
+    source: "problem"
+  - evidence_id: e3
+    content: "C is not adjacent to E."
+    source: "problem"

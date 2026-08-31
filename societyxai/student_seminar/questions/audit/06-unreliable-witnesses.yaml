@@ -1,0 +1,30 @@
+id: aptitude-unreliable-witnesses
+question: >-
+  Five students witness an event. A says B is lying. B says C is lying.
+  C says D is lying. D says E is lying. E says A and C are both telling
+  the truth. Exactly two students are telling the truth.
+  Who is telling the truth?
+  Reply support if the two truth-tellers are B and D.
+  Reply reject if you name any other pair (or more or fewer than two).
+  Reason on your own first. After you see others, you may debate.
+  State confidence from 0 to 1 (0% to 100%).
+ground_truth: support
+support_means: B and D are the two truth-tellers (A, C, E are lying)
+reject_means: some other set of people is telling the truth
+difficulty: hard
+reference_solution: >-
+  If E is true then A and C are true, so at least three truths. Contradiction.
+  So E lies. Then D's claim 'E is lying' is true, so D is a truth-teller.
+  C says D is lying, which is false, so C lies. B says C is lying, which is
+  true, so B is the second truth-teller. A says B is lying, which is false.
+  Exactly two truths: B and D.
+evidence:
+  - evidence_id: e1
+    content: "A: B is lying. B: C is lying. C: D is lying. D: E is lying."
+    source: "problem"
+  - evidence_id: e2
+    content: "E: A and C are both telling the truth."
+    source: "problem"
+  - evidence_id: e3
+    content: "Exactly two students are telling the truth."
+    source: "problem"

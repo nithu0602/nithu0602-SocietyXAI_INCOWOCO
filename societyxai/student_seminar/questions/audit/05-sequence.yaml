@@ -1,0 +1,26 @@
+id: aptitude-sequence
+question: >-
+  Find the next number: 2, 6, 12, 20, 30, ?
+  You MUST propose at least one alternative pattern before you defend
+  your final prediction. Reply support if the next number is 42.
+  Reply reject if you claim any other next number.
+  Reason on your own first. After you see others, you may debate.
+  State confidence from 0 to 1 (0% to 100%).
+ground_truth: support
+support_means: the next number is 42
+reject_means: the next number is not 42
+difficulty: medium
+reference_solution: >-
+  Differences are +4, +6, +8, +10, so next difference +12 gives 42.
+  Equivalently n(n+1) for n=1..6: 1*2, 2*3, 3*4, 4*5, 5*6, 6*7=42.
+  An alternative (weaker) story is 2^n+something; it does not fit as cleanly.
+evidence:
+  - evidence_id: e1
+    content: "Sequence: 2, 6, 12, 20, 30, ?"
+    source: "problem"
+  - evidence_id: e2
+    content: "You must name at least one alternative generating rule before locking an answer."
+    source: "problem"
+  - evidence_id: e3
+    content: "support means you claim 42; reject means you claim a different next term."
+    source: "problem"

@@ -394,3 +394,47 @@ def test_all_visibility_flags_together():
     assert "a2:" in conf_r2t1
     assert "a3:" in conf_r2t1
     assert _has_section(be.calls[3], "Current majority position")
+
+
+def test_independent_first_round_hides_peers_then_shows_them():
+    agents = [_agent("a1"), _agent("a2")]
+    s = _society(
+        agents,
+        "complete",
+        2,
+        ["a1", "a2"],
+        VisibilityConfig(
+            previous_messages=True,
+            confidence=True,
+            majority_position=True,
+            independent_first_round=True,
+        ),
+    )
+    be = RecordingBackend()
+    _run(s, _task(), backend=be)
+    assert not _has_conv(be.calls[0])
+    assert not _has_conv(be.calls[1])
+    assert _has_conv(be.calls[2])
+    assert "a2:" in _get_section(be.calls[2], "Previous messages:")
+
+
+def test_independent_first_round_hides_peers_then_shows_them():
+    agents = [_agent("a1"), _agent("a2")]
+    s = _society(
+        agents,
+        "complete",
+        2,
+        ["a1", "a2"],
+        VisibilityConfig(
+            previous_messages=True,
+            confidence=True,
+            majority_position=True,
+            independent_first_round=True,
+        ),
+    )
+    be = RecordingBackend()
+    _run(s, _task(), backend=be)
+    assert not _has_conv(be.calls[0])
+    assert not _has_conv(be.calls[1])
+    assert _has_conv(be.calls[2])
+    assert "a2:" in _get_section(be.calls[2], "Previous messages:")

@@ -666,7 +666,7 @@ def test_orchestrator_positional_args_still_work():
 def test_experiment_loader_unsupported_provider_rejects_in_registry():
     """An unsupported provider in agent_models raises during registry build."""
     config = _minimal_config(
-        provider="openai",
+        provider="not-a-real-provider",
         agent_models={"a1": "gpt-4"},
     )
     with pytest.raises(ExperimentLoaderError, match="Unsupported provider"):

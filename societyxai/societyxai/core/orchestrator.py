@@ -208,14 +208,18 @@ class Orchestrator:
     # Visibility helpers
     # ------------------------------------------------------------------
 
+    def _independent_first_round(self, round_num: int) -> bool:
+        return bool(round_num == 1 and self.society.visibility.independent_first_round)
+
     def _visible_messages(
         self,
         current_agent_id: str,
         all_messages: list[dict[str, Any]],
         adjacency_lookup: dict[str, list[str]],
+        round_num: int = 1,
     ) -> list[dict[str, Any]]:
         """Return the subset of *all_messages* visible to *current_agent_id*."""
-        if not self.society.visibility.previous_messages:
+        if self._independent_first_round(round_num) or not self.society.visibility.previous_messages:
             return []
 
         recipients = adjacency_lookup.get(current_agent_id, [])
@@ -230,9 +234,10 @@ class Orchestrator:
         current_agent_id: str,
         adjacency_lookup: dict[str, list[str]],
         agent_by_id: dict[str, Any],
+        round_num: int = 1,
     ) -> list[dict[str, Any]]:
         """Gather confidence data for agents visible to *current_agent_id*."""
-        if not self.society.visibility.confidence:
+        if self._independent_first_round(round_num) or not self.society.visibility.confidence:
             return []
         recipients = adjacency_lookup.get(current_agent_id, [])
         info: list[dict[str, Any]] = []
@@ -249,9 +254,10 @@ class Orchestrator:
         current_agent_id: str,
         adjacency_lookup: dict[str, list[str]],
         agent_by_id: dict[str, Any],
+        round_num: int = 1,
     ) -> str | None:
         """Return the majority position among visible agents, or *None*."""
-        if not self.society.visibility.majority_position:
+        if self._independent_first_round(round_num) or not self.society.visibility.majority_position:
             return None
         recipients = adjacency_lookup.get(current_agent_id, [])
         positions: list[str] = []
@@ -445,7 +451,7 @@ class Orchestrator:
                 agent = agent_by_id[agent_id]
 
                 # -- 2. Build prompt with conversation + evidence + visibility --
-                visible = self._visible_messages(agent_id, all_messages, adjacency_lookup)
+                visible = self._visible_messages(agent_id, all_messages, adjacency_lookup, round_num)
                 for interv in self.interventions:
                     visible = interv.filter_visible_messages(
                         agent_id,
@@ -456,8 +462,12 @@ class Orchestrator:
                     )
                 parent_message_ids = [msg["message_id"] for msg in visible]
                 agent.received_message_ids.extend(parent_message_ids)
-                confidence_info = self._collect_confidence_info(agent_id, adjacency_lookup, agent_by_id)
-                majority_pos = self._compute_majority_position(agent_id, adjacency_lookup, agent_by_id)
+                confidence_info = self._collect_confidence_info(
+                    agent_id, adjacency_lookup, agent_by_id, round_num
+                )
+                majority_pos = self._compute_majority_position(
+                    agent_id, adjacency_lookup, agent_by_id, round_num
+                )
                 # Expose the agent's own initial belief only on its first deliberation turn
                 initial_belief_section: str | None = None
                 if round_num == 1 and agent.current_belief is not None:
